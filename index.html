@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Almacén Frutas y Verduras</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Almacén Frutas y Verduras</h1>
+
+    <div class="container">
+      <!-- Lista de Frutas -->
+      <div class="fruits-list">
+        <h2>Frutas: {{ totalQuantity }}</h2>
+        <table>
+          <tr v-for="(fruit, index) in fruits" :key="index">
+            <td>
+              <button @click="decrementQuantity(index)">-</button>
+              <input type="number" v-model.number="fruit.quantity" min="0">
+              <button @click="incrementQuantity(index)">+</button>
+            </td>
+            <td>{{ fruit.name }}</td>
+            <td>${{ fruit.price }}</td>
+            <td>${{ fruit.quantity * fruit.price }}</td>
+          </tr>
+        </table>
+        <div class="totals">
+          <p>Subtotal: ${{ subtotal }}</p>
+          <p>IVA: ${{ iva }}</p>
+          <p>Total: ${{ total }}</p>
+        </div>
+      </div>
+
+      <!-- Formulario para agregar nueva fruta -->
+      <center><div class="new-fruit">
+        <h3>Nueva Fruta</h3>
+        <form @submit.prevent="addFruit">
+          <label>Nombre:
+            <input type="text" v-model="newFruit.name" required>
+          </label>
+          <label>Cantidad:
+            <input type="number" v-model.number="newFruit.quantity" min="0" required>
+          </label>
+          <label>Precio:
+            <input type="number" v-model.number="newFruit.price" min="0" step="0.01" required>
+          </label>
+          <button type="submit">Agregar</button>
+        </center>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
